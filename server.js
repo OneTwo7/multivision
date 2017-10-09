@@ -23,7 +23,11 @@ app.use(stylus.middleware({
 }));
 app.use(express.static(__dirname + '/public'));
 
-mongoose.connect('mongodb://localhost/multivision', {useMongoClient: true});
+if (env === 'development') {
+  mongoose.connect('mongodb://localhost/multivision', {useMongoClient: true});
+} else {
+  mongoose.connect(process.env.MLAB_URI, {useMongoClient: true});
+}
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error...'));
@@ -48,7 +52,7 @@ app.get('*', function (req, res) {
   });
 });
 
-var port = 3030;
+var port = process.env.PORT || 3030;
 
 app.listen(port);
 
