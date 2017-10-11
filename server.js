@@ -1,59 +1,19 @@
 var express = require('express');
-var stylus  = require('stylus');
-var morgan  = require('morgan');
-var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
 
 var env = process.env.NODE_ENV || 'development';
 
 var app = express();
 
-function compile (str, path) {
-  return stylus(str).set('filename', path);
-}
+var config = require('./server/config/config')[env];
 
-app.set('views', __dirname + '/server/views');
-app.set('view engine', 'pug');
-app.use(morgan('dev'));
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(bodyParser.json());
-app.use(stylus.middleware({
-  src: __dirname + '/public',
-  compile: compile
-}));
-app.use(express.static(__dirname + '/public'));
+require('./server/config/express')(app, config);
 
-if (env === 'development') {
-  mongoose.connect('mongodb://localhost/multivision', {useMongoClient: true});
-} else {
-  mongoose.connect(process.env.MLAB_URI, {useMongoClient: true});
-}
-mongoose.Promise = global.Promise;
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error...'));
-db.once('open', function () {
-  console.log('multivision db opened');
-});
+require('./server/config/mongoose')(config);
 
-var messageSchema = mongoose.Schema({message: String});
-var Message = mongoose.model('Message', messageSchema);
-var mongoMessage;
-Message.findOne().exec(function (err, messageDoc) {
-  mongoMessage = messageDoc.message;
-});
+require('./server/config/passport')();
 
-app.get('/partials/:partialPath', function (req, res) {
-  res.render('partials/' + req.params.partialPath);
-});
+require('./server/config/routes')(app);
 
-app.get('*', function (req, res) {
-  res.render('index', {
-    mongoMessage: mongoMessage
-  });
-});
+app.listen(config.port);
 
-var port = process.env.PORT || 3030;
-
-app.listen(port);
-
-console.log('Listening on port ' + port + '...');
+console.log('Listening on port ' + config.port + '...');

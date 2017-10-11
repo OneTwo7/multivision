@@ -1,13 +1,18 @@
 angular.module('app', ['ngResource', 'ngRoute']);
 
 angular.module('app').config(function ($routeProvider, $locationProvider) {
-  $locationProvider.html5Mode(true);
-  $routeProvider.when('/', {
-    templateUrl: '/partials/main',
-    controller:  'mainCtrl'
-  });
-});
+  var routeRoleChecks = {
+    admin: {
+      auth: function (mvAuth) {
+        mvAuth.authorizeCurrentUserForRoute('admin');
+      }
+    }
+  };
 
-angular.module('app').controller('mainCtrl', function ($scope) {
-  $scope.myVar = 'Hello Angular';
+  $locationProvider.html5Mode(true);
+  $routeProvider
+  .when('/', {templateUrl: '/partials/main/main', controller: 'mvMainCtrl'})
+  .when('/admin/users', {templateUrl: '/partials/admin/user-list',
+    controller: 'mvUserListCtrl', resolve: routeRoleChecks.admin
+  });
 });
