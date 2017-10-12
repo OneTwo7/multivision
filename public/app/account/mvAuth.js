@@ -30,6 +30,17 @@ angular.module('app').factory('mvAuth', function ($http, mvIdentity, $q, mvUser,
           $location.path('/');
         });
       }
+    },
+    createUser: function (newUserData) {
+      var newUser = new mvUser(newUserData);
+      var dfd = $q.defer();
+      newUser.$save().then(function () {
+        mvIdentity.currentUser = newUser;
+        dfd.resolve();
+      }, function (res) {
+        dfd.reject(res.data.reason);
+      });
+      return dfd.promise;
     }
   };
 });
