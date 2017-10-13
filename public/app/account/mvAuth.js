@@ -31,11 +31,32 @@ angular.module('app').factory('mvAuth', function ($http, mvIdentity, $q, mvUser,
         });
       }
     },
+    authorizeAuthenticatedUserForRoute: function () {
+      if (mvIdentity.isAuthenticated()) {
+        return true;
+      } else {
+        return $q.reject('not authencticated').catch(function () {
+          $location.path('/');
+        });
+      }
+    },
     createUser: function (newUserData) {
       var newUser = new mvUser(newUserData);
       var dfd = $q.defer();
       newUser.$save().then(function () {
         mvIdentity.currentUser = newUser;
+        dfd.resolve();
+      }, function (res) {
+        dfd.reject(res.data.reason);
+      });
+      return dfd.promise;
+    },
+    updateCurrentUser: function (newUserData) {
+      var dfd = $q.defer();
+      var clone = angular.copy(mvIdentity.currentUser);
+      angular.extend(clone, newUserData);
+      clone.$update().then(function () {
+        mvIdentity.currentUser = clone;
         dfd.resolve();
       }, function (res) {
         dfd.reject(res.data.reason);
