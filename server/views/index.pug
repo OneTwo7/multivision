@@ -1,5 +1,20 @@
 extends ../includes/layout
 
+block header-content
+  header
+    nav.navbar.navbar-dark.bg-dark.navbar-expand-md.navbar-fixed-top
+      .container
+        .navbar-header
+          a.navbar-brand(href="/") MultiVision
+            span.underlogo Extreme Tech Training
+        .navbar-collapse.collapse
+          ul.nav.navbar-nav.mr-auto
+            li.nav-item.active
+              a.nav-link(href="/") Home
+            li.nav-item.active
+              a.nav-link(href="/courses") Courses
+          div(ng-include="'/partials/account/navbar-login'")
+
 block main-content
   section.content
     div(ng-view)

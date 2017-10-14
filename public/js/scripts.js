@@ -375,3 +375,250 @@ function(a,d){if(0===d)c.push(a);else{var e=a.match(/(\w+)(?:[?*])?(.*)/),f=e[1]
 
 !function(e){e(["jquery"],function(e){return function(){function t(e,t,n){return g({type:O.error,iconClass:m().iconClasses.error,message:e,optionsOverride:n,title:t})}function n(t,n){return t||(t=m()),v=e("#"+t.containerId),v.length?v:(n&&(v=u(t)),v)}function i(e,t,n){return g({type:O.info,iconClass:m().iconClasses.info,message:e,optionsOverride:n,title:t})}function o(e){w=e}function s(e,t,n){return g({type:O.success,iconClass:m().iconClasses.success,message:e,optionsOverride:n,title:t})}function a(e,t,n){return g({type:O.warning,iconClass:m().iconClasses.warning,message:e,optionsOverride:n,title:t})}function r(e,t){var i=m();v||n(i),l(e,i,t)||d(i)}function c(t){var i=m();return v||n(i),t&&0===e(":focus",t).length?void h(t):void(v.children().length&&v.remove())}function d(t){for(var n=v.children(),i=n.length-1;i>=0;i--)l(e(n[i]),t)}function l(t,n,i){var o=i&&i.force?i.force:!1;return t&&(o||0===e(":focus",t).length)?(t[n.hideMethod]({duration:n.hideDuration,easing:n.hideEasing,complete:function(){h(t)}}),!0):!1}function u(t){return v=e("<div/>").attr("id",t.containerId).addClass(t.positionClass).attr("aria-live","polite").attr("role","alert"),v.appendTo(e(t.target)),v}function p(){return{tapToDismiss:!0,toastClass:"toast",containerId:"toast-container",debug:!1,showMethod:"fadeIn",showDuration:300,showEasing:"swing",onShown:void 0,hideMethod:"fadeOut",hideDuration:1e3,hideEasing:"swing",onHidden:void 0,closeMethod:!1,closeDuration:!1,closeEasing:!1,extendedTimeOut:1e3,iconClasses:{error:"toast-error",info:"toast-info",success:"toast-success",warning:"toast-warning"},iconClass:"toast-info",positionClass:"toast-top-right",timeOut:5e3,titleClass:"toast-title",messageClass:"toast-message",escapeHtml:!1,target:"body",closeHtml:'<button type="button">&times;</button>',newestOnTop:!0,preventDuplicates:!1,progressBar:!1}}function f(e){w&&w(e)}function g(t){function i(e){return null==e&&(e=""),new String(e).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/'/g,"&#39;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}function o(){r(),d(),l(),u(),p(),c()}function s(){y.hover(b,O),!x.onclick&&x.tapToDismiss&&y.click(w),x.closeButton&&k&&k.click(function(e){e.stopPropagation?e.stopPropagation():void 0!==e.cancelBubble&&e.cancelBubble!==!0&&(e.cancelBubble=!0),w(!0)}),x.onclick&&y.click(function(e){x.onclick(e),w()})}function a(){y.hide(),y[x.showMethod]({duration:x.showDuration,easing:x.showEasing,complete:x.onShown}),x.timeOut>0&&(H=setTimeout(w,x.timeOut),q.maxHideTime=parseFloat(x.timeOut),q.hideEta=(new Date).getTime()+q.maxHideTime,x.progressBar&&(q.intervalId=setInterval(D,10)))}function r(){t.iconClass&&y.addClass(x.toastClass).addClass(E)}function c(){x.newestOnTop?v.prepend(y):v.append(y)}function d(){t.title&&(I.append(x.escapeHtml?i(t.title):t.title).addClass(x.titleClass),y.append(I))}function l(){t.message&&(M.append(x.escapeHtml?i(t.message):t.message).addClass(x.messageClass),y.append(M))}function u(){x.closeButton&&(k.addClass("toast-close-button").attr("role","button"),y.prepend(k))}function p(){x.progressBar&&(B.addClass("toast-progress"),y.prepend(B))}function g(e,t){if(e.preventDuplicates){if(t.message===C)return!0;C=t.message}return!1}function w(t){var n=t&&x.closeMethod!==!1?x.closeMethod:x.hideMethod,i=t&&x.closeDuration!==!1?x.closeDuration:x.hideDuration,o=t&&x.closeEasing!==!1?x.closeEasing:x.hideEasing;return!e(":focus",y).length||t?(clearTimeout(q.intervalId),y[n]({duration:i,easing:o,complete:function(){h(y),x.onHidden&&"hidden"!==j.state&&x.onHidden(),j.state="hidden",j.endTime=new Date,f(j)}})):void 0}function O(){(x.timeOut>0||x.extendedTimeOut>0)&&(H=setTimeout(w,x.extendedTimeOut),q.maxHideTime=parseFloat(x.extendedTimeOut),q.hideEta=(new Date).getTime()+q.maxHideTime)}function b(){clearTimeout(H),q.hideEta=0,y.stop(!0,!0)[x.showMethod]({duration:x.showDuration,easing:x.showEasing})}function D(){var e=(q.hideEta-(new Date).getTime())/q.maxHideTime*100;B.width(e+"%")}var x=m(),E=t.iconClass||x.iconClass;if("undefined"!=typeof t.optionsOverride&&(x=e.extend(x,t.optionsOverride),E=t.optionsOverride.iconClass||E),!g(x,t)){T++,v=n(x,!0);var H=null,y=e("<div/>"),I=e("<div/>"),M=e("<div/>"),B=e("<div/>"),k=e(x.closeHtml),q={intervalId:null,hideEta:null,maxHideTime:null},j={toastId:T,state:"visible",startTime:new Date,options:x,map:t};return o(),a(),s(),f(j),x.debug&&console&&console.log(j),y}}function m(){return e.extend({},p(),b.options)}function h(e){v||(v=n()),e.is(":visible")||(e.remove(),e=null,0===v.children().length&&(v.remove(),C=void 0))}var v,w,C,T=0,O={error:"error",info:"info",success:"success",warning:"warning"},b={clear:r,remove:c,error:t,getContainer:n,info:i,options:{},subscribe:o,success:s,version:"2.1.2",warning:a};return b}()})}("function"==typeof define&&define.amd?define:function(e,t){"undefined"!=typeof module&&module.exports?module.exports=t(require("jquery")):window.toastr=t(window.jQuery)});
 //# sourceMappingURL=toastr.js.map
+angular.module('app', ['ngResource', 'ngRoute']);
+
+angular.module('app').config(function ($routeProvider, $locationProvider) {
+  var routeRoleChecks = {
+    admin: {
+      auth: function (mvAuth) {
+        mvAuth.authorizeCurrentUserForRoute('admin');
+      }
+    },
+    user: {
+      auth: function (mvAuth) {
+        mvAuth.authorizeAuthenticatedUserForRoute();
+      }
+    }
+  };
+
+  $locationProvider.html5Mode(true);
+  $routeProvider
+  .when('/', {templateUrl: '/partials/main/main', controller: 'mvMainCtrl'})
+  .when('/admin/users', {templateUrl: '/partials/admin/user-list',
+    controller: 'mvUserListCtrl', resolve: routeRoleChecks.admin
+  })
+  .when('/signup', {templateUrl: '/partials/account/signup',
+    controller: 'mvSignupCtrl'
+  })
+  .when('/profile', {templateUrl: '/partials/account/profile',
+    controller: 'mvProfileCtrl', resolve: routeRoleChecks.user
+  })
+  .when('/courses', {templateUrl: '/partials/courses/course-list',
+    controller: 'mvCourseListCtrl'
+  })
+  .when('/courses/:id', {templateUrl: '/partials/courses/course-details',
+    controller: 'mvCourseDetailsCtrl'
+  });
+});
+angular.module('app').factory('mvAuth', function ($http, mvIdentity, $q, mvUser, $location) {
+  return {
+    authenticateUser: function (username, password) {
+      var dfd = $q.defer();
+      $http.post('/login', {username: username, password: password}).then(function (res) {
+        if (res.data.success) {
+          var user = new mvUser();
+          angular.extend(user, res.data.user);
+          mvIdentity.currentUser = user;
+          dfd.resolve(true);
+        } else {
+          dfd.resolve(false);
+        }
+      });
+      return dfd.promise;
+    },
+    logoutUser: function () {
+      var dfd = $q.defer();
+      $http.post('/logout', {logout: true}).then(function () {
+        mvIdentity.currentUser = undefined;
+        dfd.resolve();
+      });
+      return dfd.promise;
+    },
+    authorizeCurrentUserForRoute: function (role) {
+      if (mvIdentity.isAuthorized(role)) {
+        return true;
+      } else {
+        return $q.reject('not authorized').catch(function () {
+          $location.path('/');
+        });
+      }
+    },
+    authorizeAuthenticatedUserForRoute: function () {
+      if (mvIdentity.isAuthenticated()) {
+        return true;
+      } else {
+        return $q.reject('not authencticated').catch(function () {
+          $location.path('/');
+        });
+      }
+    },
+    createUser: function (newUserData) {
+      var newUser = new mvUser(newUserData);
+      var dfd = $q.defer();
+      newUser.$save().then(function () {
+        mvIdentity.currentUser = newUser;
+        dfd.resolve();
+      }, function (res) {
+        dfd.reject(res.data.reason);
+      });
+      return dfd.promise;
+    },
+    updateCurrentUser: function (newUserData) {
+      var dfd = $q.defer();
+      var clone = angular.copy(mvIdentity.currentUser);
+      angular.extend(clone, newUserData);
+      clone.$update().then(function () {
+        mvIdentity.currentUser = clone;
+        dfd.resolve();
+      }, function (res) {
+        dfd.reject(res.data.reason);
+      });
+      return dfd.promise;
+    }
+  };
+});
+angular.module('app').factory('mvIdentity', function ($window, mvUser) {
+  var currentUser;
+  if (!!$window.bootstrappedUserObject) {
+    currentUser = new mvUser();
+    angular.extend(currentUser, $window.bootstrappedUserObject);
+  }
+  return {
+    currentUser: currentUser,
+    isAuthenticated: function () {
+      return !!this.currentUser;
+    },
+    isAuthorized: function (role) {
+      return !!this.currentUser && ~this.currentUser.roles.indexOf(role);
+    }
+  };
+});
+angular.module('app').controller('mvNavBarLoginController', function ($scope, $location, mvIdentity, mvNotifier, mvAuth) {
+  $scope.identity = mvIdentity;
+  $scope.signin = function (username, password) {
+    mvAuth.authenticateUser(username, password).then(function (success) {
+      if (success) {
+        mvNotifier.notify('You have successfully logged in!');
+      } else {
+        mvNotifier.notify('Username/Password combination is incorrect');
+      }
+    });
+  };
+  $scope.signout = function () {
+    mvAuth.logoutUser().then(function () {
+      $scope.username = "";
+      $scope.password = "";
+      mvNotifier.notify('You have successfully logged out!');
+      $location.path('/');
+    });
+  };
+});
+angular.module('app').controller('mvProfileCtrl', function ($scope, mvAuth, mvIdentity, mvNotifier) {
+  $scope.email = mvIdentity.currentUser.username;
+  $scope.firstName = mvIdentity.currentUser.firstName;
+  $scope.lastName = mvIdentity.currentUser.lastName;
+
+  $scope.update = function () {
+    var newUserData = {
+      username: $scope.email,
+      firstName: $scope.firstName,
+      lastName: $scope.lastName
+    };
+
+    if ($scope.password && $scope.password.length > 0) {
+      newUserData.password = $scope.password;
+    }
+
+    mvAuth.updateCurrentUser(newUserData).then(function () {
+      mvNotifier.notify('Your account has been updated');
+    }, function (reason) {
+      mvNotifier.error(reason);
+    });
+  };
+});
+angular.module('app').controller('mvSignupCtrl', function ($scope, $location, mvAuth, mvNotifier) {
+  
+  $scope.signup = function () {
+    var newUserData = {
+      username: $scope.email,
+      password: $scope.password,
+      firstName: $scope.firstName,
+      lastName: $scope.lastName
+    };
+
+    mvAuth.createUser(newUserData).then(function () {
+      mvNotifier.notify('User account created!');
+      $location.path('/');
+    }, function (reason) {
+      mvNotifier.error(reason);
+    });
+  };
+
+});
+angular.module('app').factory('mvUser', function ($resource) {
+  var UserResource = $resource('/api/users/:id', {_id: '@id'}, {
+    update: { method: 'PUT', isArray: false }
+  });
+
+  UserResource.prototype.isAdmin = function () {
+    return this.roles && !!~this.roles.indexOf('admin');
+  };
+
+  return UserResource;
+});
+angular.module('app').controller('mvUserListCtrl', function ($scope, mvUser) {
+  $scope.users = mvUser.query();
+});
+angular.module('app').value('mvToastr', toastr);
+
+angular.module('app').factory('mvNotifier', function (mvToastr) {
+  return {
+    notify: function (msg) {
+      mvToastr.success(msg);
+      console.log(msg);
+    },
+    error: function (msg) {
+      mvToastr.error(msg);
+      console.log(msg);
+    }
+  };
+});
+angular.module('app').controller('mvMainCtrl', function ($scope, mvCachedCourses) {
+  $scope.courses = mvCachedCourses.query();
+});
+angular.module('app').factory('mvCachedCourses', function (mvCourse) {
+  var courseList;
+
+  return {
+    query: function () {
+      if (!courseList) {
+        courseList = mvCourse.query();
+      }
+      return courseList;
+    }
+  };
+});
+angular.module('app').factory('mvCourse', function ($resource) {
+  var CourseResource = $resource('/api/courses/:_id', {_id: '@id'}, {
+    update: { method: 'PUT', isArray: false }
+  });
+  return CourseResource;
+});
+angular.module('app').controller('mvCourseDetailsCtrl', function ($scope, mvCachedCourses, $routeParams) {
+  mvCachedCourses.query().$promise.then(function (collection) {
+    collection.forEach(function (course) {
+      if (course._id === $routeParams.id) {
+        $scope.course = course;
+      }
+    });
+  });
+});
+angular.module('app').controller('mvCourseListCtrl', function ($scope, mvCachedCourses) {
+  $scope.courses = mvCachedCourses.query();
+
+  $scope.sortOptions = [
+    { value: 'title', text: 'Sort by Title' },
+    { value: 'published', text: 'Sort by Publish Date' }
+  ];
+  $scope.sortOrder = $scope.sortOptions[0].value;
+});

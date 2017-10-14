@@ -12,8 +12,14 @@ footer div {
 .form-inline input {
   margin-left: 10px;
 }
+.form-inline select {
+  margin-left: 10px;
+}
 .form-inline button {
   margin-left: 10px;
+}
+.content .form-inline {
+  margin: 10px 0;
 }
 .toast-top-right {
   top: 90px;
