@@ -32,7 +32,7 @@ exports.createUser = function (req, res, next) {
 exports.updateUser = function (req, res) {
   var userUpdates = req.body;
 
-  if (parseInt(req.user._id) !== parseInt(userUpdates._id) && !req.user.hasRole('admin')) {
+  if (req.user._id.toString() !== userUpdates._id && !req.user.hasRole('admin')) {
     res.status(403);
     return res.end();
   }
